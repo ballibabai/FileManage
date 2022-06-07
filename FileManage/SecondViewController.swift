@@ -17,7 +17,16 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
+        title = choosenImage
+        
+        //viewController da yaptığımız navigation işlemini geçersiz kılan kod satırı
+        navigationItem.largeTitleDisplayMode = .never
+        
+        
+        // bar kısmında sağ tarafa bir buton eklemesi yapıyor.
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(boxEditing))
+        
         if let loadImage = choosenImage {
             imageView.image = UIImage(named: loadImage)
         }
@@ -25,15 +34,22 @@ class SecondViewController: UIViewController {
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func boxEditing(){
+        
+        guard let image = imageView.image?.jpegData(compressionQuality: 0.8)
+        else{
+            print("no found image")
+            return
+        }
+        
+        let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+        
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
+        
     }
-    */
+    
+
+
 
 }

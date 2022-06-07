@@ -21,6 +21,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         tableView.delegate = self
         
+        title = "deneme"
+        
+        //alttaki satır tab bar kısmında yazdığımız title ı biraz büyütüp sola çekmemize yarıyor.
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+       
+        
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)
